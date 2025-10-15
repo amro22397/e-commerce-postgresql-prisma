@@ -39,7 +39,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, currentUser }) => {
         {order?.user.name}</div>
 
       <div> <span className="font-semibold">Order ID: </span>
-        {order._id}</div>
+        {order.id}</div>
 
       <div>
         <span className="font-semibold">Total Amount:{" "}</span>

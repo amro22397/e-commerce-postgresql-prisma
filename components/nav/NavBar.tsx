@@ -30,6 +30,7 @@ const NavBar = async () => {
   bg-slate-200
   z-30
   shadow-sm'>
+    {/* <pre>{JSON.stringify(currentUser, null, 2)}22</pre> */}
       <div className="py-4 border-b-[1px] px-4">
       <pre className='hidden'
             >{JSON.stringify(currentUser, null, 2)}</pre>

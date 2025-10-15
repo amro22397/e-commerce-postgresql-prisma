@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 
 export type SafeUser = {
-  _id?: string | null | undefined,
+  id?: string | null | undefined,
   name?: string | null | undefined,
   email?: string | null | undefined,
   hashedPassword?: string | null | undefined,

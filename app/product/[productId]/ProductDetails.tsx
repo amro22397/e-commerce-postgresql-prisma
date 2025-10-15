@@ -49,7 +49,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     
     const [isProductInCart, setIsProductInCart] = useState(false);
     const [cartProduct, setCartProduct] = useState<CartProductType>({
-        id: product._id,
+        id: product.id,
     name: product.name,
     description: product.description,
     category: product.category,
@@ -64,7 +64,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
         if (cartProducts) {
             const existingIndex = cartProducts.findIndex(
-                item => item.id === product._id
+                item => item.id === product.id
             );
 
             if (existingIndex > -1) {
@@ -73,7 +73,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         }
     }, [cartProducts]);
 
-    const productRating = product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / product.reviews.length;
+    const productRating = product?.reviews?.reduce((acc: number, item: any) => item.rating + acc, 0) / product?.reviews?.length;
 
     const handleColorSelect = useCallback(
         (value: SelectedImgType) => {
@@ -119,7 +119,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
       <div className="flex items-center gap-2">
           <Rating value={productRating} readOnly />
-          <div>{product.reviews.length} reviews</div>
+          <div>{product?.reviews?.length} reviews</div>
         </div>
         <Horizontal />
         <div className="text-justify">{product.description}</div>

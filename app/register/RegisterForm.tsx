@@ -19,6 +19,27 @@ interface RegisterFormProps {
 const RegisterForm:React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [validation, setValidation] = useState(false);
+
+
+
+  const handleValidation = (value: string) => {
+    const lower = new RegExp("(?=.*[a-z])");
+    const upper = new RegExp("(?=.*[A-Z])");
+    const number = new RegExp("(?=.*[0-9])");
+    const special = new RegExp("(?=.*[!@#$%^&*])");
+
+    if (
+      lower.test(value) &&
+      upper.test(value) &&
+      number.test(value) &&
+      special.test(value)
+    ) {
+      setValidation(true);
+    } else {
+      setValidation(false);
+    }
+  };
   
   const {
     register,
@@ -35,11 +56,113 @@ const RegisterForm:React.FC<RegisterFormProps> = ({ currentUser }) => {
   const router = useRouter();
 
 
-  const onSubmit:SubmitHandler<FieldValues> = (data) => {
+  const onSubmit:SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true); 
     console.log(data)
+
+    if (data.name.length < 3) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "User name cannot be less than 3 characters",
+      // });
+      toast.error("User name cannot be less than 3 characters");
+      setIsLoading(false)
+      return;
+    } else if (data.name.length > 25) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "User name cannot be more than 25 characters",
+      // });
+      toast.error("User name cannot be more than 25 characters");
+      setIsLoading(false)
+      return;
+    }
+
+    if (data.password.length < 6) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "Password cannot be less than 6 characters",
+      // });
+      toast.error("Password cannot be less than 6 characters");
+      setIsLoading(false);
+      return;
+    } else if (data.password.length > 20) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "Password cannot be more than 20 characters",
+      // });
+      toast.error("Password cannot be more than 20 characters");
+      setIsLoading(false);
+      return;
+    }
+
+
+    const lower = new RegExp("(?=.*[a-z])");
+    const upper = new RegExp("(?=.*[A-Z])");
+    const number = new RegExp("(?=.*[0-9])");
+    const special = new RegExp("(?=.*[!@#$%^&*])");
+
+    if (!lower.test(data.password)) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "Password must contain at least one lowercase letter (asdfghjkl)",
+      //   description: "",
+      //   });
+      toast.error(
+        "Password must contain at least one lowercase letter (asdfghjkl)"
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    if (!upper.test(data.password)) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "Password must contain at least one highercase letter (ASDFGHJKL)",
+      //   description: "",
+      //   });
+      toast.error(
+        "Password must contain at least one highercase letter (ASDFGHJKL)"
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    if (!number.test(data.password)) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "Password must contain at least one number (1234567890)",
+      //   description: "",
+      //   });
+      toast.error("Password must contain at least one number (1234567890)");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!special.test(data.password)) {
+      // toast({
+      //   variant: "destructive",
+      //   title: "Password must contain at least one special letter (!@#$%^&*)",
+      //   description: "",
+      //   });
+      toast.error(
+        "Password must contain at least one special letter (!@#$%^&*)"
+      );
+      setIsLoading(false);
+      return;
+    }
+
     
-    axios.post('/api/register', data).then(() => {
+    try {
+      
+      const res = await axios.post('/api/register', data)
+    
+    if (!res.data.success) {
+        toast.error(res.data.message)
+        setIsLoading(false)
+        return
+      }
+
       toast.success("Account created");
 
       signIn('credentials', {
@@ -52,15 +175,54 @@ const RegisterForm:React.FC<RegisterFormProps> = ({ currentUser }) => {
           router.refresh();
           toast.success('Logged In');
         }
-
-        if (callback?.error) {
-          toast.error(callback.error);
-        }
       })
-    }).catch(() => toast.error("Something went wrong"))
-    .finally(() => {
-      setIsLoading(false);
-    })
+
+      setIsLoading(false)
+
+    } catch (error) {
+      
+      toast.error(`Something went wrong: ${error}`);
+      setIsLoading(false)
+
+    }
+    
+
+
+
+
+
+
+
+    // axios.post('/api/register', data).then((res) => {
+    //   console.log(res)
+      
+    // }).then(() => {
+      
+    //  toast.success("Account created");
+
+    //   signIn('credentials', {
+    //     email: data.email,
+    //     password: data.password,
+    //     redirect: false,
+    //   }).then((callback) => {
+    //     if (callback?.ok) {
+    //       router.push('/cart');
+    //       router.refresh();
+    //       toast.success('Logged In');
+    //     }
+
+    //     // if (callback?.error) {
+    //     //   toast.error(callback.error);
+    //     // }
+    //   })
+    // })
+    // .catch(() => toast.error("Something went wrong"))
+    // .finally(() => {
+    //   setIsLoading(false);
+    // })
+
+
+    // last line in onSubmit
   }
 
   if (currentUser) {

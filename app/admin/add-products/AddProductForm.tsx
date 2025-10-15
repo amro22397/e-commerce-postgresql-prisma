@@ -19,7 +19,7 @@ import TextArea from "@/components/inputs/TextArea";
 import CustomCheckBox from "@/components/inputs/CustomCheckBox";
 import { categories } from "@/utils/Categories";
 import CategoryInput from "@/components/inputs/CategoryInput";
-import { setConstantValue } from "typescript";
+// import { setConstantValue } from "typescript";
 import { colors } from "@/utils/colors";
 import SelectColor from "@/components/inputs/SelectColor";
 
@@ -142,6 +142,8 @@ const AddProductForm = () => {
 
       await handleImageUploads();
       const productData = { ...data, images: uploadedImages };
+
+      console.log(productData)
 
       axios
       .post("/api/product", productData)
@@ -276,6 +278,7 @@ const AddProductForm = () => {
             return (
                 <SelectColor
                 key={item.color}
+                keyA={item.color}
                 item={item}
                 addImageToState={addImageToState}
                 removeImageFromState={removeImageFromState}

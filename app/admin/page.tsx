@@ -5,7 +5,7 @@ import Container from '@/components/Container';
 import React from 'react'
 import Summary from './Summary';
 // import getGraphData from '@/actions/getGraphData';
-import BarGraph from './BarGraph';
+// import BarGraph from './BarGraph';
 
 const page = async () => {
 

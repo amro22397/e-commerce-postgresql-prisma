@@ -41,9 +41,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
     }
   }, []);
 
-  const onSubmit:SubmitHandler<FieldValues> = (data) => {
+  const onSubmit:SubmitHandler<FieldValues> = async (data) => {
+
     setIsLoading(true); 
-    signIn('credentials', {
+
+    const res = await axios.post("/api/login", { ...data });
+
+    console.log(res)
+
+    if (!res.data.success) {
+      toast.error(`${res.data.message}`);
+      setIsLoading(false);
+      return
+    }
+
+    if (res.data.success) {
+      signIn('credentials', {
       ...data,
       redirect: false,
     }).then((callback) => {
@@ -59,6 +72,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
 
       setIsLoading(false)
     })
+
+
+      setIsLoading(false);
+    }
+
+    
+    
   }
 
   if (currentUser) {
@@ -77,8 +97,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
         outline
         label="Continue with Google"
         icon={AiOutlineGoogle}
-        onClick={() => {
-          signIn('google');
+        onClick={async () => {
+          await signIn("google", { callbackUrl: `/` });
         }}
       />
 
@@ -109,7 +129,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       />
       
       <p className="text-sm">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link className="underline" href="/register">
           Sign Up
         </Link>

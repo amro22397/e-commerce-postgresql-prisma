@@ -35,7 +35,7 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
     if (orders) {
       rows = orders.map((order) => {
         return {
-          id: order._id,
+          id: order.id,
           customer: order?.user?.name,
           products: order.products,
           amount: formatPrice(order.amount),

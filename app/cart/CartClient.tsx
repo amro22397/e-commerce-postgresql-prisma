@@ -58,7 +58,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
     setIsLoading(true);
 
     const order = {
-      userId: currentUser?._id, user: currentUser, products: cartProducts, amount: cartTotalAmount, currency: "usd", 
+      userId: currentUser?.id, user: currentUser, products: cartProducts, amount: cartTotalAmount, currency: "usd", 
       status: "pending", deliveryStatus: "pending"
     }
 

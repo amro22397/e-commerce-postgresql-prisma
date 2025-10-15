@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://neondb_owner:npg_Gef2IDyWRKz0@ep-divine-mountain-a1qxtqga-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+}
+
+model Account {
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  id                String   @id @default(uuid())
+  userId            String
+  type              String?
+  provider          String?
+  providerAccountId String?
+  refresh_token     String?
+  access_token      String?
+  expires_at        String?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+}
+
+model Order {
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  id             String   @id @default(uuid())
+  userId         String
+  amount         Float
+  currency       String
+  status         String?
+  deliveryStatus String?
+  products       Json
+}
+
+model OrderObj {
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  id             String   @id @default(uuid())
+  userId         String
+  user           Json
+  amount         Float
+  currency       String?
+  status         String?
+  deliveryStatus String?
+  products       Json
+  createDate     DateTime @default(now())
+}
+
+model Product {
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  brand       String?
+  category    String?
+  inStock     Boolean?
+  images      Json?
+  reviews     Json?
+}
+
+model User {
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  id             String   @id @default(uuid())
+  name           String?
+  username       String?
+  email          String   @unique
+  emailVerified  String?
+  password       String?
+  image          String?
+  hashedPassword String?
+  role           String   @default("USER")
+  accounts       Json?
+  orders         Json?
+  reviews        Json?
+}
+
+model Review {
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  id          String   @id @default(uuid())
+  userId      String
+  productId   String
+  rating      Float?
+  comment     String?
+  createdDate DateTime @default(now())
+  user        Json
+}

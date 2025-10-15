@@ -1,13 +1,14 @@
 
 import { getCurrentUser } from '@/actions/getCurrentUser';
-import { OrderObj } from '@/models/OrderObj';
-import { Product } from '@/models/Product';
-import mongoose from 'mongoose';
+// import { OrderObj } from '@/models/OrderObj';
+// import { Product } from '@/models/Product';
+// import mongoose from 'mongoose';
 import { NextResponse } from 'next/server';
+import prisma from "@/lib/prisma"
 
 
 export async function POST(request: Request) {
-    mongoose.connect(process.env.DATABASE_URL as string);
+    // mongoose.connect(process.env.DATABASE_URL as string);
 
    try {
     const currentUser = await getCurrentUser();
@@ -18,9 +19,15 @@ export async function POST(request: Request) {
 
     const { userId, user, products, amount, currency, status, deliveryStatus } = body;
 
-    const order = await OrderObj.create({
-        userId, user, products, amount, currency, status, deliveryStatus
-    });
+    // const order = await OrderObj.create({
+    //     userId, user, products, amount, currency, status, deliveryStatus
+    // });
+
+    const order = await prisma.orderObj.create({
+        data: {
+          userId, user, products, amount, currency, status, deliveryStatus 
+        }
+    })
 
     return NextResponse.json(order);
 
@@ -33,7 +40,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
 
-    mongoose.connect(process.env.DATABASE_URL as string);
+    // mongoose.connect(process.env.DATABASE_URL as string);
 
     try {
         
@@ -46,9 +53,15 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json();
+
     const { id, deliveryStatus } = body;
 
-    const order = await OrderObj.updateOne({_id: id}, { deliveryStatus } )
+    // const order = await OrderObj.updateOne({_id: id}, { deliveryStatus } )
+
+    const order = await prisma.orderObj.update({
+        where: { id: id },
+        data: { deliveryStatus }
+    })
 
     return NextResponse.json(order);
 

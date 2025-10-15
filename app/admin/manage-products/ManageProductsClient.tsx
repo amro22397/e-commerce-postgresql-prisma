@@ -36,7 +36,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({ products })
   if (products) {
     rows = products.map((product) => {
         return {
-            id: product._id,
+            id: product.id,
             name: product.name,
         price: formatPrice(product.price),
         category: product.category,

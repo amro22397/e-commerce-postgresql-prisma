@@ -1,7 +1,8 @@
-import { Order } from "@/models/Order";
-import { OrderObj } from "@/models/OrderObj";
+// import { Order } from "@/models/Order";
+// import { OrderObj } from "@/models/OrderObj";
 import { getCurrentUser } from "./getCurrentUser";
 import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma"
 
 interface IParams {
     orderId?: string;
@@ -17,12 +18,16 @@ interface IParams {
 
         const { orderId } = params;
 
-        const order = await OrderObj.findOne({ _id: orderId });
-        const jOrder = JSON.parse(JSON.stringify(order));
+        // const order = await OrderObj.findOne({ _id: orderId });
+        // const jOrder = JSON.parse(JSON.stringify(order));
 
-        if (!jOrder) return null;
+        const order = await prisma.orderObj.findUnique({
+          where: { id: orderId },
+        })
 
-        return jOrder
+        if (!order) return null;
+
+        return order
     } catch (error: any) {
         throw new Error(error)
     }

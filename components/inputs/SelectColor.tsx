@@ -10,7 +10,7 @@ interface SelectColorProps {
   addImageToState: (value: ImageType) => void;
   removeImageFromState: (value: ImageType) => void;
   isProductCreated: boolean;
-  key: string;
+  keyA: string;
 }
 
 const SelectColor: React.FC<SelectColorProps> = ({
@@ -18,7 +18,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
     addImageToState,
     removeImageFromState,
     isProductCreated,
-    key
+    keyA
   }) => {
 
     const [isSelected, setIsSelected] = useState(false);
@@ -47,7 +47,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
 
   return (
     <div className="grid grid-cols-1 overflow-y-auto border-b-[1.2px] border-slate-200 items-center p-2"
-    key={key}
+    key={keyA}
     >
         <div className="flex flex-row gap-2 items-center h-[60px]">
         <input

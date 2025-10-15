@@ -7,7 +7,9 @@ import ManageProductsClient from './ManageProductsClient'
 
 const page = async () => {
     const products = await getProducts({category: null})
-    const currentUser = await getCurrentUser()
+    const currentUser = await getCurrentUser();
+
+    console.log(`products array: ${products}`);
 
     if (!currentUser || currentUser?.user?.role !== "ADMIN") {
         return (

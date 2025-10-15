@@ -44,7 +44,7 @@ const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
       <div className="text-sm mt-2">
         {product.reviews && product.reviews.map((review: any) => {
             return (
-                <div key={review._id} className="max-w-[300px]">
+                <div key={review.id} className="max-w-[300px]">
                 <div className="flex gap-2 items-center flex-row justify-between">
                 {/* <Avatar src={review?.user.image} />  */}
                   <div className="">
@@ -54,9 +54,9 @@ const ListRating: React.FC<ListRatingProps> = ({ product, user }) => {
                   </div>
                   </div>
                   
-                  {user?.role === "ADMIN" || user?._id === review?.userId ? (
+                  {user?.role === "ADMIN" || user?.id === review?.userId ? (
                     <div className="">
-                    <TrashComponent review={review} handleDeleteReview={() => handleDeleteReview(review._id)} />
+                    <TrashComponent review={review} handleDeleteReview={() => handleDeleteReview(review.id)} />
                   </div>
                   ) : (
                     <></>

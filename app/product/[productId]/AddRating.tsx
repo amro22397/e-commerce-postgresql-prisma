@@ -53,7 +53,7 @@ const AddRating:React.FC<AddRatingProps> = ({ product, user }) => {
             toast.error('No rating selected')
         }
 
-        const ratingData = {...data, userId: user._id, product: product, user: user}
+        const ratingData = {...data, userId: user.id, product: product, user: user}
 
         axios.post('/api/rating', ratingData).then(() => {
             toast.success('Rating submitted');

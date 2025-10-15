@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Heading from "../../components/Heading";
 import { formatPrice } from "@/utils/formatPrice";
 import { formatNumber } from "@/utils/formatNumber";
-import axios from "axios";
+// import axios from "axios";
 // import { formatNumber } from "@/utils/formatNumber";
 
 interface SummaryProps{

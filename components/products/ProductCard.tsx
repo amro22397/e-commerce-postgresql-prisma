@@ -14,11 +14,11 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ data, key }) => {
   const router = useRouter();
 
-  const productRating = data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / data.reviews.length
+  const productRating = data?.reviews?.reduce((acc: number, item: any) => item.rating + acc, 0) / data?.reviews?.length
 
   return (
     <div 
-    onClick={() => router.push(`/product/${data._id}`)}
+    onClick={() => router.push(`/product/${data.id}`)}
     key={key}
     className='col-span-1
     cursor-pointer
@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, key }) => {
         <div>
           <Rating value={productRating} readOnly />
         </div>
-        <div>{data.reviews.length} reviews</div>
+        <div>{data?.reviews?.length} reviews</div>
         <div className="font-semibold">{formatPrice(data.price)}</div>
       </div>
     </div>

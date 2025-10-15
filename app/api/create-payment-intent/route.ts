@@ -95,4 +95,6 @@ export async function POST(request: Request) {
 
     export async function POST(request: Request) {
         console.log('ali')
+
+        console.log(request)
     }

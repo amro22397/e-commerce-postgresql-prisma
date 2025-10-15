@@ -1,5 +1,7 @@
-import { Product } from "@/models/Product";
-import mongoose from "mongoose";
+// import { Product } from "@/models/Product";
+// import mongoose from "mongoose";
+
+import prisma from "@/lib/prisma"
 
 export interface IProductParams {
     category?: string | null;
@@ -10,34 +12,53 @@ export interface IProductParams {
     
     try {
 
-        mongoose.connect(process.env.DATABASE_URL as string);
+        // mongoose.connect(process.env.DATABASE_URL as string);
 
         const { category, searchTerm } = params;
-    let searchString = searchTerm;
+    // let searchString = searchTerm;
 
-    if (!searchTerm) {
-      searchString = "";
-    }
+    console.log(`category is : ${category}`)
+
+    // if (!searchTerm) {
+    //   searchString = "";
+    // }
 
     let query: any = {};
 
     if (category) {
       query.category = category;
     }
-        const products = await Product.find({
-            ...query,
-            $or: [
-                {name: {$regex: searchString, $options: "i"}},
-                {description: {$regex: searchString, $options: "i"}}
+        // const products = await Product.find({
+        //     ...query,
+        //     $or: [
+        //         {name: {$regex: searchString, $options: "i"}},
+        //         {description: {$regex: searchString, $options: "i"}}
+        //     ]
+        // }).sort({createdAt: -1})
+
+        // const jProducts = JSON.parse(JSON.stringify(products));
+
+        const products = await prisma.product.findMany({
+          where: {
+            AND: [
+              { ...query },
+
+              searchTerm ? {
+                OR: [
+                  { name: { contains: searchTerm, mode: "insensitive" } },
+                  { description: { contains: searchTerm, mode: "insensitive" } },
+                ]
+              }
+              : {}
             ]
-        }).sort({createdAt: -1})
+          }
+    }
+          )
 
-        const jProducts = JSON.parse(JSON.stringify(products));
+        console.log(products)
 
-        console.log(jProducts)
-
-        return jProducts;
+        return products;
     } catch (error) {
-        console.log(error)
+        console.log(`Server error fetching products: ${error}`);
     }
   }
