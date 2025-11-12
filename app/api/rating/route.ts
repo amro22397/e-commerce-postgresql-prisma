@@ -5,7 +5,12 @@ import { NextResponse } from "next/server";
 
 
 export async function POST(request: Request) {
-    const currentUser = await getCurrentUser();
+    
+
+    try {
+        
+
+        const currentUser = await getCurrentUser();
 
     console.log(currentUser)
 
@@ -64,5 +69,16 @@ export async function POST(request: Request) {
     })
 
     return NextResponse.json(review, productReview)
+
+
+    } catch (error) {
+        
+        console.log(`Server error add rating: ${error}`)
+
+        return NextResponse.json({
+            success: false,
+            message: `Server error add rating: ${error}`
+        })
+    }
 }
 

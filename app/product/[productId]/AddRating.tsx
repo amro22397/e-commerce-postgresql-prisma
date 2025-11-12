@@ -3,11 +3,11 @@
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Input from "@/components/inputs/Input";
-import { SafeUser } from "@/types";
+// import { SafeUser } from "@/types";
 import { Rating } from "@mui/material";
 // import { Order, Product, Review } from "@prisma/client";
 import axios from "axios";
-import { error } from "console";
+// import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -93,6 +93,7 @@ const AddRating:React.FC<AddRatingProps> = ({ product, user }) => {
 
   return (
     <div className="flex flex-col gap-2 max-w-[500px]">
+        <p>ssss</p>
         <Heading title='Rate this product'/>
         <Rating onChange={(event, newValue) => {
             setCustomValue('rating', newValue)

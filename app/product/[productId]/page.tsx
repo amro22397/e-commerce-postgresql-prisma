@@ -33,7 +33,9 @@ const page = async ({ params }: { params: Iprams }) => {
         <pre className="hidden">{JSON.stringify(user, null, 2)}</pre>
         <ProductDetails product={product} />
         <div className="flex flex-col mt-20 gap-8 max-md:px-4">
+          {/* <p>ssss</p> */}
           <AddRating product={product} user={user?.user} />
+          {/* <p>ssss</p> */}
         <ListRating product={product} user={user?.user} />
         </div>
       </Container>

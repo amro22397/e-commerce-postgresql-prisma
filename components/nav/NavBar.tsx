@@ -5,12 +5,12 @@ import { Redressed } from 'next/font/google'
 import CartCount from './CartCount'
 import UserMenu from './UserMenu'
 import { getCurrentUser } from '@/actions/getCurrentUser'
-import { json } from 'stream/consumers'
+// import { json } from 'stream/consumers'
 import Categories from './Categories'
 import SearchBar from '../SearchBar'
 import { Suspense } from 'react';
 
-import { getServerSession } from 'next-auth'
+// import { getServerSession } from 'next-auth'
 import { Loader2 } from 'lucide-react'
 // import { authOptions } from '@/pages/api/auth/[...nextauth]'
 
@@ -59,7 +59,7 @@ const NavBar = async () => {
             
             <div className="flex flex-row items-center gap-8 md:gap-12">
               {currentUser && (
-                <span className="">Hello, {currentUser.user?.name}</span>
+                <span className="max-sm:hidden">Hello, {currentUser.user?.name}</span>
               )}
 
               <CartCount />
