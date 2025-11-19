@@ -58,21 +58,36 @@ const CheckoutClient = ({ user }: { user: User }) => {
   // tap payments
 
 
-  // const handlePay = async () => {
-  //   setLoading(true);
-  //   const res = await fetch("/api/create-payment", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       name: user?.name,
-  //       email: user?.email,
-  //       amount: 1, // USD
-  //     }),
-  //   });
-  //   const data = await res.json();
-  //   if (data.url) window.location.href = data.url;
-  //   setLoading(false);
-  // };
+  const handlePay = async () => {
+    setLoading(true);
+
+    if (!user) {
+      alert("Please login first")
+    }
+
+
+    const res = await fetch("/api/create-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: user?.name,
+        email: user?.email,
+        amount: 1, // USD
+      }),
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    setLoading(false);
+  };
+
+
+
+
+  const isCheckout = false;
+
+  if (isCheckout) {
+    handleCheckout();
+  }
 
   /* 
 useEffect(() => {
@@ -131,11 +146,18 @@ useEffect(() => {
             I make Stripe Account...
         </span> */}
 
-        <pre className="">{JSON.stringify(response, null, 2)}</pre>
+        {/* <pre className="">{JSON.stringify(user, null, 2)}</pre> */}
 
       <h1 className="text-2xl mb-4">Checkout Page</h1>
+
+      <span className="text-center text-rose-600">
+            You may be able to pay with (Apple Pay, Google Pay), but I working to make
+            debit card payments available.
+        </span>
+
+
       <button
-        onClick={handleCheckout}
+        onClick={handlePay}
         disabled={loading}
         className="bg-blue-600 text-white px-4 py-2 rounded"
       >

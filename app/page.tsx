@@ -6,6 +6,7 @@ import HomeBanner from "../components/HomeBanner";
 import ProductCard from "../components/products/ProductCard";
 import getProducts, { IProductParams } from "@/actions/getProducts";
 import NullData from "../components/NullData";
+import Link from "next/link";
 
 interface HomeProps{
   searchParams: IProductParams
@@ -34,6 +35,7 @@ export default async function Home({searchParams}: HomeProps) {
   return (
     <div className="p-8 max-md:px-0 md:px-2 lg:px-8">
       <Container>
+        <Link href={'/checkout'}>Go to checkout</Link>
         <div>
           <HomeBanner />
         </div>

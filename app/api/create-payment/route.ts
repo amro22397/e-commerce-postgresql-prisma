@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
           id: "src_all" // show all available payment methods
         },
         redirect: {
+          //////// Tap will redirect here
           url: process.env.NEXTAUTH_URL // Tap will redirect here
         }
       },
