@@ -140,7 +140,7 @@ useEffect(() => {
   */
 
   return (
-    <div className="w-full flex flex-col gap-6 justify-center items-center">
+    <div className="w-full flex flex-col gap-[14px] justify-center items-center">
       {/* <span className="text-center text-rose-600">
             Checkout Form is not available now I will make it available once
             I make Stripe Account...
@@ -148,10 +148,10 @@ useEffect(() => {
 
         {/* <pre className="">{JSON.stringify(user, null, 2)}</pre> */}
 
-      <h1 className="text-2xl mb-4">Checkout Page</h1>
+      <h1 className="text-2xl">Checkout Page</h1>
 
       <span className="text-center text-rose-600">
-            You may be able to pay with (Apple Pay, Google Pay), but I working to make
+            You may be able to pay with (Apple Pay, Google Pay), but I&apos;m working to make
             debit card payments available.
         </span>
 
