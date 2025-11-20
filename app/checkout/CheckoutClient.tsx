@@ -3,11 +3,11 @@
 // import { useCart } from '@/hooks/useCart';
 // import { Elements } from '@stripe/react-stripe-js';
 // import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 // import toast from 'react-hot-toast';
 // import CheckoutForm from './CheckoutForm';
-import Button from "@/components/Button";
+// import Button from "@/components/Button";
 import { User } from "@/types/user";
 
 /* const stripePromise = loadStripe(
@@ -20,9 +20,9 @@ const CheckoutClient = ({ user }: { user: User }) => {
   const [response, setResponse] = useState(null);
   // const [error, setError] = useState(false);
   // const [clientSecret, setClientSecret] = useState("");
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  // const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-  const router = useRouter();
+  // const router = useRouter();
 
 
 
@@ -49,6 +49,36 @@ const CheckoutClient = ({ user }: { user: User }) => {
     }
 
     setLoading(false);
+  };
+
+
+
+
+
+
+  // paytabs payments
+
+
+  const handlePayment = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/paytabs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: 1, customer_email: user?.email, customer_name: user?.name }),
+      });
+      const data = await res.json();
+      if (data.payment_url) {
+        window.location.href = data.payment_url; // redirect to PayTabs payment page
+      } else {
+        alert("Payment initiation failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error processing payment");
+    } finally {
+      setLoading(false);
+    }
   };
 
 
@@ -83,10 +113,11 @@ const CheckoutClient = ({ user }: { user: User }) => {
 
 
 
-  const isCheckout = false;
+  const isRunning = false;
 
-  if (isCheckout) {
+  if (isRunning) {
     handleCheckout();
+    handlePay()
   }
 
   /* 
@@ -157,7 +188,7 @@ useEffect(() => {
 
 
       <button
-        onClick={handlePay}
+        onClick={handlePayment}
         disabled={loading}
         className="bg-blue-600 text-white px-4 py-2 rounded"
       >
