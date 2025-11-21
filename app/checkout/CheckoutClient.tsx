@@ -246,9 +246,15 @@ useEffect(() => {
 
       <pre className="">{JSON.stringify(data, null, 2)}</pre>
 
-      <h1 className="text-2xl">Checkout Page</h1>
+      <h1 className="text-2xl mb-1">Checkout Page</h1>
 
-      <h1>2Checkout Payment</h1>
+
+
+
+      {/* 2Checkout */}
+
+
+      {/* <h1>2Checkout Payment</h1>
 
       <input id="ccNo" placeholder="Card Number" />
       <br />
@@ -263,12 +269,17 @@ useEffect(() => {
         {loading ? "Processing..." : "Pay 1$"}
       </button>
 
-      <p>{msg}</p>
+      <p>{msg}</p> */}
 
-      <span className="text-center text-rose-600">
+
+
+
+
+
+      {/* <span className="text-center text-rose-600">
         You may be able to pay with (Apple Pay, Google Pay), but I&apos;m
         working to make debit card payments available.
-      </span>
+      </span> */}
 
       <button
         onClick={handlePay}
