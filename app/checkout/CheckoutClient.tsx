@@ -257,7 +257,7 @@ useEffect(() => {
         </span> */}
 
         <Script src="https://secure.2checkout.com/checkout/api/2co.min.js"
-        strategy="afterInteractive"
+        strategy="beforeInteractive"
         />
 
         <pre className="">{JSON.stringify(data, null, 2)}</pre>
