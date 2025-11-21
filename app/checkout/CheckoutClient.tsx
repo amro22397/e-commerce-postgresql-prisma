@@ -118,7 +118,7 @@ const CheckoutClient = ({ user }: { user: User }) => {
   const pay = () => {
     setLoading(true);
 
-    console.log(window.TCO)
+    console.log(window.TCO);
 
     if (!window.TCO) {
       setMsg("TCO library not loaded!");
@@ -240,6 +240,8 @@ useEffect(() => {
       <Script
         src="https://secure.2checkout.com/checkout/api/2co.min.js"
         strategy="beforeInteractive"
+        onLoad={() => console.log("TCO loaded")}
+        onError={(e) => console.log("TCO failed", e)}
       />
 
       <pre className="">{JSON.stringify(data, null, 2)}</pre>
