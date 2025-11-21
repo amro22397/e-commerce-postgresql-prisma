@@ -138,6 +138,7 @@ const CheckoutClient = ({ user }: { user: User }) => {
 
     if (!window.TCO) {
       setMsg("TCO library not loaded!");
+      setLoading(false);
       return;
     }
 
